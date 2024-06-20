@@ -1,8 +1,15 @@
+import 'package:bloc_app/core/secrets/app_secert.dart';
 import 'package:bloc_app/core/theme/theme.dart';
 import 'package:bloc_app/features/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: AppSecrets.supabaseURL,
+    anonKey: AppSecrets.supabaseAnonKey,
+  );
   runApp(const MyApp());
 }
 
