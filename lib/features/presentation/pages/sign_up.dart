@@ -1,8 +1,10 @@
 import 'package:bloc_app/core/theme/app_pallete.dart';
+import 'package:bloc_app/features/presentation/bloc/auth_bloc.dart';
 import 'package:bloc_app/features/presentation/pages/login.dart';
 import 'package:bloc_app/features/presentation/widgets/auth_field.dart';
 import 'package:bloc_app/features/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -71,8 +73,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const AuthGradientButton(
+                  AuthGradientButton(
                     buttonText: "Sign Up",
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                              AuthSignUp(
+                                email: _emailController.text.trim(),
+                                name: _nameController.text.trim(),
+                                password: _passwordController.text.trim(),
+                              ),
+                            );
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 20,
